@@ -21,6 +21,7 @@ import { UniverSheetsNumfmtPlugin } from "@univerjs/sheets-numfmt";
  * 如果您在使用该插件的时候出现了问题，或者无法理解如何使用，请禁用 Univer Plugins，并手动导入语言包和样式
  */
 import { zhCN, enUS } from 'univer:locales'
+import { UniverSheetsClipboardCellCustomPlugin } from "./cell-custom-plugin";
 
 const univer = new Univer({
   theme: defaultTheme,
@@ -48,6 +49,8 @@ univer.registerPlugin(UniverSheetsUIPlugin);
 univer.registerPlugin(UniverSheetsNumfmtPlugin);
 univer.registerPlugin(UniverSheetsFormulaPlugin);
 univer.registerPlugin(UniverSheetsFormulaUIPlugin);
+univer.registerPlugin(UniverSheetsClipboardCellCustomPlugin);
+
 // create univer sheet instance
 univer.createUnit(UniverInstanceType.UNIVER_SHEET, {
   "id": "gyI0JO",
@@ -61,7 +64,7 @@ univer.createUnit(UniverInstanceType.UNIVER_SHEET, {
   "sheets": {
       "RSfWjJFv4opmE1JaiRj80": {
           "id": "RSfWjJFv4opmE1JaiRj80",
-          "name": "测试",
+          "name": "test",
           "tabColor": "",
           "hidden": 0,
           "rowCount": 30,
