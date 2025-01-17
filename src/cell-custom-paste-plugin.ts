@@ -21,8 +21,8 @@ import { Disposable, Inject, Injector, mergeOverrideWithDependencies, ObjectMatr
 import { SetRangeValuesMutation, SetRangeValuesUndoMutationFactory } from '@univerjs/sheets';
 import { ISheetClipboardService, virtualizeDiscreteRanges } from '@univerjs/sheets-ui';
 
-export class UniverSheetsClipboardCellCustomPlugin extends Plugin {
-    static override pluginName = 'SHEET_CLIPBOARD_CELL_CUSTOM_PLUGIN';
+export class UniverSheetsCellCustomPastePlugin extends Plugin {
+    static override pluginName = 'SHEET_CELL_CUSTOM_PASTE_PLUGIN';
     static override type = UniverInstanceType.UNIVER_SHEET;
 
     constructor(
@@ -34,16 +34,16 @@ export class UniverSheetsClipboardCellCustomPlugin extends Plugin {
 
     override onStarting(): void {
         registerDependencies(this._injector, mergeOverrideWithDependencies([
-            [CellCustomCopyPasteController],
+            [CellCustomPasteController],
         ] as Dependency[]));
 
         touchDependencies(this._injector, [
-            [CellCustomCopyPasteController],
+            [CellCustomPasteController],
         ]);
     }
 }
 
-export class CellCustomCopyPasteController extends Disposable {
+export class CellCustomPasteController extends Disposable {
     constructor(
         @Inject(Injector) private _injector: Injector,
         @Inject(ISheetClipboardService) private _sheetClipboardService: ISheetClipboardService
@@ -67,7 +67,7 @@ export class CellCustomCopyPasteController extends Disposable {
 }
 
 /**
- *
+ * Get set cell custom mutations
  * @param pasteTo
  * @param pasteFrom
  * @param matrix
@@ -96,7 +96,7 @@ export function getSetCellCustomMutations(
     const setCustomMutation: ISetRangeValuesMutationParams = {
         unitId,
         subUnitId,
-        cellValue: Tools.deepClone(valueMatrix.getMatrix()),
+        cellValue: valueMatrix.getMatrix(),
     };
 
     redoMutationsInfo.push({
